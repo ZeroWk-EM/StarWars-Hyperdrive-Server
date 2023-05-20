@@ -1,9 +1,9 @@
-import { VechicleType } from "./enum/vehicletype.enum";
+import { VechicleEnum } from "./enum/vehicle.enum";
 
 interface IVehicles {
   name: string;
   model: string;
-  type: VechicleType;
+  type: VechicleEnum;
   manufacturer: string;
   cost_in_credits: number;
   length: number;

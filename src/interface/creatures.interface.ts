@@ -1,14 +1,14 @@
-import { Designation } from "./enum/designation.enum";
-import { EyeColor } from "./enum/eye_color.enum";
+import { DesignationEnum } from "./enum/designation.enum";
+import { EyeColorEnum } from "./enum/eyecolor.enum";
 
 interface ICreature {
   name: string;
   description: string;
-  designation: Designation;
+  designation: DesignationEnum;
   height: number;
   weight: number;
   skin_color: string;
-  eye_color: EyeColor;
+  eye_color: EyeColorEnum;
   location: string[];
 }
 

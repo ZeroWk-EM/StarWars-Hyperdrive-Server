@@ -1,8 +1,8 @@
-import { WeaponType } from "./enum/weapontype.enum";
+import { WeaponEnum } from "./enum/weapon.enum";
 
 interface IWeapons {
   name: string;
-  type: WeaponType;
+  type: WeaponEnum;
   description: string;
   owner: string;
 }

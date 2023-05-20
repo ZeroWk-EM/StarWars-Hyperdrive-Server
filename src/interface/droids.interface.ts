@@ -1,8 +1,8 @@
-import { TypeDroid } from "./enum/droidtype.enum";
+import { DroidEnum } from "./enum/droid.enum";
 
 interface IDroid {
   name: string;
-  type: TypeDroid;
+  type: DroidEnum;
   height: number;
   weight: number;
   owner: string;

@@ -1,8 +1,8 @@
-import { Designation } from "./enum/designation.enum";
+import { DesignationEnum } from "./enum/designation.enum";
 
 interface ISpecie {
     name: string;
-    designation: Designation;
+    designation: DesignationEnum;
     average_height: number;
     skin_color: string;
     average_lifespan: number;
