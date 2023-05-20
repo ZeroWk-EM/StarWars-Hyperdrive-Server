@@ -1,4 +1,4 @@
-import { WeaponType } from "../interface/enum/weapontype.enum";
+import { WeaponEnum } from "../interface/enum/weapon.enum";
 import IWeapons from "../interface/weapons.interface";
 import { model, Schema } from "mongoose";
 
@@ -7,7 +7,7 @@ const WeaponsSchema = new Schema<IWeapons>(
     name: { type: String, required: true },
     type: {
       type: String,
-      enum: WeaponType,
+      enum: WeaponEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,

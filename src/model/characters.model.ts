@@ -1,7 +1,7 @@
 import ICharacter from "../interface/characters.interface";
 import { model, Schema } from "mongoose";
-import { EyeColor } from "../interface/enum/eye_color.enum";
-import { Gender } from "../interface/enum/gender.enum";
+import { EyeColorEnum } from "../interface/enum/eyecolor.enum";
+import { GenderEnum } from "../interface/enum/gender.enum";
 
 const CharacterSchema = new Schema<ICharacter>(
   {
@@ -11,7 +11,7 @@ const CharacterSchema = new Schema<ICharacter>(
     weight: { type: Number, required: true },
     gender: {
       type: String,
-      enum: Gender,
+      enum: GenderEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,
@@ -20,7 +20,7 @@ const CharacterSchema = new Schema<ICharacter>(
     skin_color: { type: String, required: true },
     eye_color: {
       type: String,
-      enum: EyeColor,
+      enum: EyeColorEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,

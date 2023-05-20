@@ -1,13 +1,13 @@
 import IDroid from "../interface/droids.interface";
 import { model, Schema } from "mongoose";
-import { TypeDroid } from "../interface/enum/droidtype.enum";
+import { DroidEnum } from "../interface/enum/droid.enum";
 
 const DroidSchema = new Schema<IDroid>(
   {
     name: { type: String, required: true },
     type: {
       type: String,
-      enum: TypeDroid,
+      enum: DroidEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,

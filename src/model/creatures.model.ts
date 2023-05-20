@@ -1,7 +1,7 @@
 import ICreature from "../interface/creatures.interface";
 import { model, Schema } from "mongoose";
-import { Designation } from "../interface/enum/designation.enum";
-import { EyeColor } from "../interface/enum/eye_color.enum";
+import { DesignationEnum } from "../interface/enum/designation.enum";
+import { EyeColorEnum } from "../interface/enum/eyecolor.enum";
 
 const CreatureSchema = new Schema<ICreature>(
   {
@@ -9,7 +9,7 @@ const CreatureSchema = new Schema<ICreature>(
     description: { type: String, required: true },
     designation: {
       type: String,
-      enum: Designation,
+      enum: DesignationEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,
@@ -19,7 +19,7 @@ const CreatureSchema = new Schema<ICreature>(
     skin_color: { type: String, required: true },
     eye_color: {
       type: String,
-      enum: EyeColor,
+      enum: EyeColorEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,

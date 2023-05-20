@@ -1,4 +1,4 @@
-import { Designation } from "../interface/enum/designation.enum";
+import { DesignationEnum } from "../interface/enum/designation.enum";
 import ISpecie from "../interface/species.interface";
 import { model, Schema } from "mongoose";
 
@@ -7,7 +7,7 @@ const SpecieSchema = new Schema<ISpecie>(
     name: { type: String, required: true },
     designation: {
       type: String,
-      enum: Designation,
+      enum: DesignationEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
 

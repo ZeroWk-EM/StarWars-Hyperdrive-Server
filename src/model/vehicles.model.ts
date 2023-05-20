@@ -1,4 +1,4 @@
-import { VechicleType } from "../interface/enum/vehicletype.enum";
+import { VechicleEnum } from "../interface/enum/vehicle.enum";
 import IVehicles from "../interface/vehicles.interface";
 import { model, Schema } from "mongoose";
 
@@ -8,7 +8,7 @@ const VehicleSchema = new Schema<IVehicles>(
     model: { type: String, required: true },
     type: {
       type: String,
-      enum: VechicleType,
+      enum: VechicleEnum,
       message:
         "{VALUE} is not supported, see the documentation for see acceptable values",
       required: true,
