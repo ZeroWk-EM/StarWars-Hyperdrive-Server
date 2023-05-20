@@ -1,5 +1,5 @@
-import ICharacter from "../interface/characters.interface";
 import { model, Schema } from "mongoose";
+import ICharacter from "../interface/characters.interface";
 import { EyeColorEnum } from "../interface/enum/eyecolor.enum";
 import { GenderEnum } from "../interface/enum/gender.enum";
 

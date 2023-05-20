@@ -1,6 +1,6 @@
-import { WeaponEnum } from "../interface/enum/weapon.enum";
-import IWeapons from "../interface/weapons.interface";
 import { model, Schema } from "mongoose";
+import IWeapons from "../interface/weapons.interface";
+import { WeaponEnum } from "../interface/enum/weapon.enum";
 
 const WeaponsSchema = new Schema<IWeapons>(
   {

@@ -1,5 +1,5 @@
-import ICreature from "../interface/creatures.interface";
 import { model, Schema } from "mongoose";
+import ICreature from "../interface/creatures.interface";
 import { DesignationEnum } from "../interface/enum/designation.enum";
 import { EyeColorEnum } from "../interface/enum/eyecolor.enum";
 

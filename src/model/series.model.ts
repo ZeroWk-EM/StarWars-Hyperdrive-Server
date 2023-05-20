@@ -1,5 +1,5 @@
-import ISerie from "../interface/series.interface";
 import { model, Schema } from "mongoose";
+import ISerie from "../interface/series.interface";
 
 const SeriesSchema = new Schema<ISerie>(
   {

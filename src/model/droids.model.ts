@@ -1,5 +1,5 @@
-import IDroid from "../interface/droids.interface";
 import { model, Schema } from "mongoose";
+import IDroid from "../interface/droids.interface";
 import { DroidEnum } from "../interface/enum/droid.enum";
 
 const DroidSchema = new Schema<IDroid>(

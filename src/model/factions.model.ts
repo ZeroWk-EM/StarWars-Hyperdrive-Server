@@ -1,5 +1,5 @@
-import IFaction from "../interface/factions.interface";
 import { model, Schema } from "mongoose";
+import IFaction from "../interface/factions.interface";
 
 const FactionSchema = new Schema<IFaction>(
   {

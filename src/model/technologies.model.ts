@@ -1,5 +1,5 @@
-import ITechnologie from "../interface/technologies.interface";
 import { model, Schema } from "mongoose";
+import ITechnologie from "../interface/technologies.interface";
 
 const TechnologieSchema = new Schema<ITechnologie>(
   {

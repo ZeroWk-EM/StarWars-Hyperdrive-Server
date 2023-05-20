@@ -1,6 +1,6 @@
-import { DesignationEnum } from "../interface/enum/designation.enum";
-import ISpecie from "../interface/species.interface";
 import { model, Schema } from "mongoose";
+import ISpecie from "../interface/species.interface";
+import { DesignationEnum } from "../interface/enum/designation.enum";
 
 const SpecieSchema = new Schema<ISpecie>(
   {

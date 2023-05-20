@@ -1,6 +1,6 @@
-import { VechicleEnum } from "../interface/enum/vehicle.enum";
-import IVehicles from "../interface/vehicles.interface";
 import { model, Schema } from "mongoose";
+import IVehicles from "../interface/vehicles.interface";
+import { VechicleEnum } from "../interface/enum/vehicle.enum";
 
 const VehicleSchema = new Schema<IVehicles>(
   {
