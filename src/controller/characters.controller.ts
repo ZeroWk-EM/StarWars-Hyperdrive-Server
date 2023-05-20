@@ -45,12 +45,17 @@ export const createCharacter = async ({ body }: Request, res: Response) => {
 export const updateCharacter = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
   const characterToUpdate: ICharacter = body;
+  /* 
+    const oldValue = await Character.findById(id, { _id: 0, movies: 1 });
+    const array = oldValue?.movies;
+    const newarray = array ? [...array, ...characterToUpdate.movies] : characterToUpdate.movies;
+  */
   // IF IS ARRAY
   if (body.movies) {
     try {
       const characterUpdate = await Character.findByIdAndUpdate(
         id,
-        { $push: { movies: characterToUpdate.movies } },
+        { $set: { movies: characterToUpdate.movies } },
         { new: true, runValidators: true, useFindAndModify: false }
       );
       console.log(characterUpdate);
