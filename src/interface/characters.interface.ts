@@ -1,21 +1,14 @@
+import { EyeColor } from "./enum/eye_color.enum";
+import { Gender } from "./enum/gender.enum";
 interface ICharacter {
   name: string;
   surname: string;
   height: number;
   weight: number;
-  gender: "Male" | "Female" | "Asexual" | "Unknown" | "Other";
+  gender: Gender;
   hair_color: string;
   skin_color: string;
-  eye_color:
-    | "Brown"
-    | "Amber"
-    | "Hazel"
-    | "Green"
-    | "Blue"
-    | "Gray"
-    | "Yellow"
-    | "Red"
-    | "Unknown";
+  eye_color: EyeColor;
   birth_year: string;
   homeworld: string;
   factions: string[];
