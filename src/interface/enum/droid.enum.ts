@@ -1,4 +1,4 @@
-export enum TypeDroid {
+export enum DroidEnum {
   Interrogation = "Interrogation",
   Pilot = "Pilot",
   Scout = "Scout",

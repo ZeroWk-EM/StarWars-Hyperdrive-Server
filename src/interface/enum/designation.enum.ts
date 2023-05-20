@@ -1,4 +1,4 @@
-export enum Designation{
+export enum DesignationEnum{
     Sentient = "Sentient",
     NonSentient = "NonSentient",
     Intelligent = "Intelligent"

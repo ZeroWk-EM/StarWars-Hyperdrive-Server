@@ -1,4 +1,4 @@
-export enum VechicleType {
+export enum VechicleEnum {
   Biker = "Biker",
   Starship = "Starship",
   Amphibious = "Amphibious",

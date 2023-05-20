@@ -1,4 +1,4 @@
-export enum EyeColor {
+export enum EyeColorEnum {
   Brown = "Brown",
   Amber = "Amber",
   Hazel = "Hazel",
