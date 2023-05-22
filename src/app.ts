@@ -16,6 +16,8 @@ app.get("/", (req: Request, res: Response) => {
     status: 200,
     message: "Server is running",
     endpoint: [
+      `/${apiVersion}/auth/login`,
+      `/${apiVersion}/auth/register`,
       `/${apiVersion}/characters`,
       `/${apiVersion}/creatures`,
       `/${apiVersion}/droids`,
@@ -24,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
       `/${apiVersion}/series`,
       `/${apiVersion}/species`,
       `/${apiVersion}/technologies`,
+      `/${apiVersion}/users/list`,
       `/${apiVersion}/vehicles`,
       `/${apiVersion}/weapons`,
     ],
@@ -31,6 +34,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Take all route method
+import authRoutes from "./routes/auth.routes";
 import charactersRoutes from "./routes/characters.routes";
 import creaturesRoutes from "./routes/creatures.routes";
 import droidsRoutes from "./routes/droids.routes";
@@ -39,24 +43,25 @@ import moviesRoutes from "./routes/movies.routes";
 import seriesRoutes from "./routes/series.routes";
 import speciesRoutes from "./routes/species.routes";
 import technologiesRoutes from "./routes/technologies.routes";
+import usersRoutes from "./routes/user.routes";
 import vehiclesRoutes from "./routes/vehicles.routes";
 import weaponsRoutes from "./routes/weapons.routes";
 
 // Association endpoint with route
-app.use(`/${apiVersion}/characters`,charactersRoutes)
-app.use(`/${apiVersion}/creatures`,creaturesRoutes)
-app.use(`/${apiVersion}/droids`,droidsRoutes)
-app.use(`/${apiVersion}/factions`,factionsRoutes)
-app.use(`/${apiVersion}/movies`,moviesRoutes)
-app.use(`/${apiVersion}/series`,seriesRoutes)
-app.use(`/${apiVersion}/species`,speciesRoutes)
-app.use(`/${apiVersion}/technologies`,technologiesRoutes)
-app.use(`/${apiVersion}/vehicles`,vehiclesRoutes)
-app.use(`/${apiVersion}/weapons`,weaponsRoutes)
+app.use(`/${apiVersion}/auth`, authRoutes);
+app.use(`/${apiVersion}/characters`, charactersRoutes);
+app.use(`/${apiVersion}/creatures`, creaturesRoutes);
+app.use(`/${apiVersion}/droids`, droidsRoutes);
+app.use(`/${apiVersion}/factions`, factionsRoutes);
+app.use(`/${apiVersion}/movies`, moviesRoutes);
+app.use(`/${apiVersion}/series`, seriesRoutes);
+app.use(`/${apiVersion}/species`, speciesRoutes);
+app.use(`/${apiVersion}/technologies`, technologiesRoutes);
+app.use(`/${apiVersion}/users`, usersRoutes);
+app.use(`/${apiVersion}/vehicles`, vehiclesRoutes);
+app.use(`/${apiVersion}/weapons`, weaponsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server started in port ${PORT} `);
   connectToMongoDB();
 });
-
-
