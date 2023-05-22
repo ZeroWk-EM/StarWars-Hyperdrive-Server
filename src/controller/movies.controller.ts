@@ -101,6 +101,3 @@ export const deleteMovie = async (_: Request, res: Response) => {
   }
 };
 
-export const checkInfo = (_: Request, res: Response) => {
-  return res.status(200).json({ status: 200, directory: "/movies" });
-};

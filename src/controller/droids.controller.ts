@@ -84,7 +84,3 @@ export const deleteDroid = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-
-export const checkInfo = (_: Request, res: Response) => {
-  return res.status(200).json({ status: 200, directory: "/droids" });
-};
