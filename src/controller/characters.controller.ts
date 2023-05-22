@@ -48,6 +48,7 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
   // Destrutturazione del body
   const {
+    image,
     name,
     surname,
     height,
@@ -67,6 +68,7 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
   }: ICharacter = body;
   // Contiene gli attributi che hanno stringhe e numeri
   const primitiveData = {
+    image,
     name,
     surname,
     height,
@@ -78,7 +80,7 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
     birth_year,
     homeworld,
   };
-    // Contiene gli attributi che hanno array
+  // Contiene gli attributi che hanno array
   const arrayData = {
     factions,
     movies,
