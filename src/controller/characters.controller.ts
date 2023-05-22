@@ -46,32 +46,51 @@ export const createCharacter = async ({ body }: Request, res: Response) => {
 
 export const updateCharacter = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
+  // Destrutturazione del body
+  const {
+    name,
+    surname,
+    height,
+    weight,
+    gender,
+    hair_color,
+    skin_color,
+    eye_color,
+    birth_year,
+    homeworld,
+    factions,
+    movies,
+    series,
+    specie,
+    vehicles,
+    weapons,
+  }: ICharacter = body;
   // Contiene gli attributi che hanno stringhe e numeri
-  const characterToUpdate: ICharacter = {
-    name: body.name,
-    surname: body.surname,
-    height: body.height,
-    weight: body.weight,
-    gender: body.gender,
-    hair_color: body.hair_color,
-    skin_color: body.skin_color,
-    eye_color: body.eye_color,
-    birth_year: body.birth_year,
-    homeworld: body.homeworld,
+  const primitiveData = {
+    name,
+    surname,
+    height,
+    weight,
+    gender,
+    hair_color,
+    skin_color,
+    eye_color,
+    birth_year,
+    homeworld,
   };
-  // Contiene gli attributi che hanno gli array
-  const characterToUpdateArray: ICharacter = {
-    factions: body.factions,
-    movies: body.movies,
-    series: body.series,
-    specie: body.specie,
-    vehicles: body.vehicles,
-    weapons: body.weapons,
+    // Contiene gli attributi che hanno array
+  const arrayData = {
+    factions,
+    movies,
+    series,
+    specie,
+    vehicles,
+    weapons,
   };
   try {
     const characterUpdate = await Character.findByIdAndUpdate(
       id,
-      { $set: characterToUpdate, $addToSet: characterToUpdateArray },
+      { $set: primitiveData, $addToSet: arrayData },
       { new: true, runValidators: true, useFindAndModify: false }
     );
     if (characterUpdate) return res.status(200).json(characterUpdate);
