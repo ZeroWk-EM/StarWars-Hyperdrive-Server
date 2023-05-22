@@ -1,6 +1,6 @@
-import { Request, Response, json } from "express";
-import ICharacter from "../interface/characters.interface";
+import { Request, Response } from "express";
 import Character from "../model/characters.model";
+import ICharacter from "../interface/characters.interface";
 
 export const getAllCharacters = async ({ query }: Request, res: Response) => {
   try {
@@ -15,7 +15,7 @@ export const getAllCharacters = async ({ query }: Request, res: Response) => {
   }
 };
 
-export const getCharacterByID = async (req: Request, res: Response) => {
+export const getCharacterByID = async (_: Request, res: Response) => {
   try {
     const findByID = await Character.findById(res.locals.id);
     if (!findByID)
@@ -41,8 +41,6 @@ export const createCharacter = async ({ body }: Request, res: Response) => {
     });
   }
 };
-
-/* { $addToSet: { movies: { $each: body.movies } } } */
 
 export const updateCharacter = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
@@ -90,12 +88,12 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
     weapons,
   };
   try {
-    const characterUpdate = await Character.findByIdAndUpdate(
+    const characterToUpdate = await Character.findByIdAndUpdate(
       id,
       { $set: primitiveData, $addToSet: arrayData },
       { new: true, runValidators: true, useFindAndModify: false }
     );
-    if (characterUpdate) return res.status(200).json(characterUpdate);
+    if (characterToUpdate) return res.status(200).json(characterToUpdate);
     return res.status(404).json({
       status: 404,
       error_message: "Error character to update not found",
@@ -105,7 +103,7 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const deleteCharacter = async (req: Request, res: Response) => {
+export const deleteCharacter = async (_: Request, res: Response) => {
   try {
     const characterToDelete = await Character.findByIdAndDelete(res.locals.id);
     if (!characterToDelete)
@@ -119,6 +117,6 @@ export const deleteCharacter = async (req: Request, res: Response) => {
   }
 };
 
-export const checkInfo = (req: Request, res: Response) => {
+export const checkInfo = (_: Request, res: Response) => {
   return res.status(200).json({ status: 200, directory: "/character" });
 };
