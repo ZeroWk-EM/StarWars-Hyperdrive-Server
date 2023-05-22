@@ -42,38 +42,36 @@ export const createCharacter = async ({ body }: Request, res: Response) => {
   }
 };
 
+/* { $addToSet: { movies: { $each: body.movies } } } */
+
 export const updateCharacter = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
-  const characterToUpdate: ICharacter = body;
-  /* 
-    const oldValue = await Character.findById(id, { _id: 0, movies: 1 });
-    const array = oldValue?.movies;
-    const newarray = array ? [...array, ...characterToUpdate.movies] : characterToUpdate.movies;
-  */
-  // IF IS ARRAY
-  if (body.movies) {
-    try {
-      const characterUpdate = await Character.findByIdAndUpdate(
-        id,
-        { $set: { movies: characterToUpdate.movies } },
-        { new: true, runValidators: true, useFindAndModify: false }
-      );
-      console.log(characterUpdate);
-      if (characterUpdate) return res.status(200).json(characterUpdate);
-      return res.status(400).json({
-        status: 400,
-        error_message: "Error to update character",
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json({ error_message: error });
-    }
-  }
-  // IF IS A STRING OR NUMBER
+  // Contiene gli attributi che hanno stringhe e numeri
+  const characterToUpdate: ICharacter = {
+    name: body.name,
+    surname: body.surname,
+    height: body.height,
+    weight: body.weight,
+    gender: body.gender,
+    hair_color: body.hair_color,
+    skin_color: body.skin_color,
+    eye_color: body.eye_color,
+    birth_year: body.birth_year,
+    homeworld: body.homeworld,
+  };
+  // Contiene gli attributi che hanno gli array
+  const characterToUpdateArray: ICharacter = {
+    factions: body.factions,
+    movies: body.movies,
+    series: body.series,
+    specie: body.specie,
+    vehicles: body.vehicles,
+    weapons: body.weapons,
+  };
   try {
     const characterUpdate = await Character.findByIdAndUpdate(
       id,
-      { $set: characterToUpdate },
+      { $set: characterToUpdate, $addToSet: characterToUpdateArray },
       { new: true, runValidators: true, useFindAndModify: false }
     );
     if (characterUpdate) return res.status(200).json(characterUpdate);
