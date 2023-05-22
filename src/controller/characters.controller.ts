@@ -101,7 +101,6 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
       error_message: "Error character to update not found",
     });
   } catch (error) {
-    console.log(error);
     return res.status(400).json({ error_message: error });
   }
 };
