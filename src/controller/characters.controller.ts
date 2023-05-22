@@ -96,9 +96,9 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
       { new: true, runValidators: true, useFindAndModify: false }
     );
     if (characterUpdate) return res.status(200).json(characterUpdate);
-    return res.status(400).json({
-      status: 400,
-      error_message: "Error to update character",
+    return res.status(404).json({
+      status: 404,
+      error_message: "Error character to update not found",
     });
   } catch (error) {
     console.log(error);
