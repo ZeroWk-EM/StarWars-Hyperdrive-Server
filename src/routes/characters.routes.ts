@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  checkInfo,
   createCharacter,
   deleteCharacter,
   getAllCharacters,
@@ -18,6 +17,5 @@ router.get("/:id", checkIdValid, getCharacterByID);
 router.post("/", checkBodyValid, createCharacter);
 router.put("/:id", checkIdValid, updateCharacter);
 router.delete("/:id", checkIdValid, deleteCharacter);
-router.get("/info", checkInfo);
 
 export default router;
