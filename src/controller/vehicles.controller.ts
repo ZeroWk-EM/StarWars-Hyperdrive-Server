@@ -14,7 +14,7 @@ export const getAllVehicles = async ({ query }: Request, res: Response) => {
   }
 };
 
-export const getVehiclesByID = async (_: Request, res: Response) => {
+export const getVehicleByID = async (_: Request, res: Response) => {
   try {
     const findByID = await Vehicles.findById(res.locals.id);
     if (!findByID)
@@ -25,7 +25,7 @@ export const getVehiclesByID = async (_: Request, res: Response) => {
   }
 };
 
-export const createVehicles = async ({ body }: Request, res: Response) => {
+export const createVehicle = async ({ body }: Request, res: Response) => {
   try {
     const newVehiclesBody: IVehicles = body;
     const newVehicles = await Vehicles.create(newVehiclesBody);
@@ -41,7 +41,7 @@ export const createVehicles = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const updateVehicles = async ({ body }: Request, res: Response) => {
+export const updateVehicle = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
   // Destrutturazione del body
   const primitiveData: IVehicles = body;
@@ -61,7 +61,7 @@ export const updateVehicles = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const deleteVehicles = async (_: Request, res: Response) => {
+export const deleteVehicle = async (_: Request, res: Response) => {
   try {
     const vehiclesToDelete = await Vehicles.findByIdAndDelete(res.locals.id);
     if (!vehiclesToDelete)

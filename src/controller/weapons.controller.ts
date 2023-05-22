@@ -14,7 +14,7 @@ export const getAllWeapons = async ({ query }: Request, res: Response) => {
   }
 };
 
-export const getWeaponsByID = async (_: Request, res: Response) => {
+export const getWeaponByID = async (_: Request, res: Response) => {
   try {
     const findByID = await Weapons.findById(res.locals.id);
     if (!findByID)
@@ -25,7 +25,7 @@ export const getWeaponsByID = async (_: Request, res: Response) => {
   }
 };
 
-export const createWeapons = async ({ body }: Request, res: Response) => {
+export const createWeapon = async ({ body }: Request, res: Response) => {
   try {
     const newWeaponsBody: IWeapons = body;
     const newWeapons = await Weapons.create(newWeaponsBody);
@@ -41,7 +41,7 @@ export const createWeapons = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const updateWeapons = async ({ body }: Request, res: Response) => {
+export const updateWeapon = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
   // Destrutturazione del body
   const primitiveData: IWeapons = body;
@@ -61,7 +61,7 @@ export const updateWeapons = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const deleteWeapons = async (_: Request, res: Response) => {
+export const deleteWeapon = async (_: Request, res: Response) => {
   try {
     const weaponsToDelete = await Weapons.findByIdAndDelete(res.locals.id);
     if (!weaponsToDelete)

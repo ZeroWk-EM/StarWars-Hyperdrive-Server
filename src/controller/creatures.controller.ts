@@ -41,7 +41,7 @@ export const createCreature = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const updateCharacter = async ({ body }: Request, res: Response) => {
+export const updateCreature = async ({ body }: Request, res: Response) => {
   const id = res.locals.id;
 
   const {
@@ -83,7 +83,7 @@ export const updateCharacter = async ({ body }: Request, res: Response) => {
   }
 };
 
-export const deleteCharacter = async (_: Request, res: Response) => {
+export const deleteCreature = async (_: Request, res: Response) => {
   try {
     const creatureToDelete = await Creature.findByIdAndDelete(res.locals.id);
     if (!creatureToDelete)
