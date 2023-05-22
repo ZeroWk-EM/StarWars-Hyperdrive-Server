@@ -3,6 +3,7 @@ import ITechnologie from "../interface/technologies.interface";
 
 const TechnologieSchema = new Schema<ITechnologie>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     description: { type: String, required: true },
   },

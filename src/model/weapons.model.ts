@@ -4,6 +4,7 @@ import { WeaponEnum } from "../interface/enum/weapon.enum";
 
 const WeaponsSchema = new Schema<IWeapons>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     type: {
       type: String,

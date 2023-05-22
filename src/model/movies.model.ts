@@ -3,6 +3,7 @@ import IMovie from "../interface/movies.interface";
 
 const MovieSchema = new Schema<IMovie>(
   {
+    image: { type: String, required: false },
     title: { type: String, require: true },
     episode_id: { type: Number, required: true },
     opening_crawl: { type: String, required: true },

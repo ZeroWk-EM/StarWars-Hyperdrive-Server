@@ -3,6 +3,7 @@ import ISerie from "../interface/series.interface";
 
 const SeriesSchema = new Schema<ISerie>(
   {
+    image: { type: String, required: false },
     title: { type: String, require: true },
     seasons: { type: Number, required: true },
     total_episodes: { type: Number, required: true },

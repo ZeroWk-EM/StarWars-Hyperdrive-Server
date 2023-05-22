@@ -4,6 +4,7 @@ import { RoleType } from "../interface/enum/role.enum";
 
 const UserSchema = new Schema<IUser>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     surname: { type: String, required: true },
     role: {

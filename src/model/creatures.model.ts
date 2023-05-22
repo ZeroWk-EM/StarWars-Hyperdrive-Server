@@ -5,6 +5,7 @@ import { EyeColorEnum } from "../interface/enum/eyecolor.enum";
 
 const CreatureSchema = new Schema<ICreature>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     description: { type: String, required: true },
     designation: {

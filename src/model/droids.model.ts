@@ -4,6 +4,7 @@ import { DroidEnum } from "../interface/enum/droid.enum";
 
 const DroidSchema = new Schema<IDroid>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     type: {
       type: String,

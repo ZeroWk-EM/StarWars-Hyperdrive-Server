@@ -5,6 +5,7 @@ import { GenderEnum } from "../interface/enum/gender.enum";
 
 const CharacterSchema = new Schema<ICharacter>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     surname: { type: String, required: false },
     height: { type: Number, required: true },

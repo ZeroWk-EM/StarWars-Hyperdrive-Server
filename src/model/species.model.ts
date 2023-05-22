@@ -4,6 +4,7 @@ import { DesignationEnum } from "../interface/enum/designation.enum";
 
 const SpecieSchema = new Schema<ISpecie>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     designation: {
       type: String,

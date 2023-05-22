@@ -3,6 +3,7 @@ import IFaction from "../interface/factions.interface";
 
 const FactionSchema = new Schema<IFaction>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     description: { type: String, required: true },
     planet: [{ type: String, required: false }],

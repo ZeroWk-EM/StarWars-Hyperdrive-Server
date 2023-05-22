@@ -4,6 +4,7 @@ import { VechicleEnum } from "../interface/enum/vehicle.enum";
 
 const VehicleSchema = new Schema<IVehicles>(
   {
+    image: { type: String, required: false },
     name: { type: String, required: true },
     model: { type: String, required: true },
     type: {
