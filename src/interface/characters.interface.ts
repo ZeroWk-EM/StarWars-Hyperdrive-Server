@@ -1,6 +1,7 @@
 import { EyeColorEnum } from "./enum/eyecolor.enum";
 import { GenderEnum } from "./enum/gender.enum";
 interface ICharacter {
+  image: string;
   name: string;
   surname: string;
   height: number;

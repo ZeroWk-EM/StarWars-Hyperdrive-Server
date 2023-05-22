@@ -2,6 +2,7 @@ import { DesignationEnum } from "./enum/designation.enum";
 import { EyeColorEnum } from "./enum/eyecolor.enum";
 
 interface ICreature {
+  image: string;
   name: string;
   description: string;
   designation: DesignationEnum;

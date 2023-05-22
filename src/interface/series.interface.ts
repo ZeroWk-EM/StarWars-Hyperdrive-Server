@@ -1,4 +1,5 @@
 interface ISerie {
+  image: string;
   title: string;
   seasons: number;
   total_episodes: number;

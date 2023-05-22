@@ -1,6 +1,7 @@
 import { RoleType } from "./enum/role.enum";
 
 interface IUser {
+  image: string;
   name: string;
   surname: string;
   role: RoleType;
@@ -8,6 +9,5 @@ interface IUser {
   email: string;
   password: string;
 }
-
 
 export default IUser;

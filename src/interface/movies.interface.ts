@@ -1,4 +1,5 @@
 interface IMovie {
+  image: string;
   title: string;
   episode_id: number;
   opening_crawl: string;
