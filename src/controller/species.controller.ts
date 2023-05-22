@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Specie from "../model/species.model";
+import ISpecie from "../interface/species.interface";
 
 export const getAllSpecies = async ({ query }: Request, res: Response) => {
   try {

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Technologie from "../model/technologies.model";
+import ITechnologie from "../interface/technologies.interface";
 
 export const getAllTechonologies = async (
   { query }: Request,

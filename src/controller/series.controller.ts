@@ -1,5 +1,6 @@
 import { Request, Response, query } from "express";
 import Serie from "../model/series.model";
+import ISerie from "../interface/series.interface";
 
 export const getAllSeries = async ({ query }: Request, res: Response) => {
   try {

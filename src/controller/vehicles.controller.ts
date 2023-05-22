@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Vehicles from "../model/vehicles.model";
+import IVehicles from "../interface/vehicles.interface";
 
 export const getAllVehicles = async ({ query }: Request, res: Response) => {
   try {

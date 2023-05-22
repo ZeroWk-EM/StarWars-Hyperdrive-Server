@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Weapons from "../model/weapons.model";
+import IWeapons from "../interface/weapons.interface";
 
 export const getAllWeapons = async ({ query }: Request, res: Response) => {
   try {
