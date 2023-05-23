@@ -2,11 +2,41 @@ import { Request, Response } from "express";
 import Character from "../model/characters.model";
 import ICharacter from "../interface/characters.interface";
 
-export const getAllCharacters = async ({ query }: Request, res: Response) => {
+export const getAllCharacters = async (req: Request, res: Response) => {
   try {
-    const getAll = await Character.find(query);
-    if (getAll)
-      return res.status(200).json({ status: 200, characters: getAll });
+    // PAGINAZIONE
+    let urlPrev = null;
+    let urlNext = null;
+    const page = Number(req.query.page);
+    if (!req.query.page) {
+      urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=2`;
+    }
+    if (req.query.page && page >= 1) {
+      urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=${
+        page + 1
+      }`;
+      if (page >= 2) {
+        urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${
+          page - 1
+        }`;
+      }
+    }
+
+    const getAll = await Character.find({})
+      .skip(!req.query.page || page === 1 ? 0 : page * 10)
+      .limit(20);
+
+    if (getAll) {
+      return res.status(200).json({
+        info: {
+          status: 200,
+          total_character: await Character.countDocuments({}),
+          next: urlNext,
+          prev: urlPrev,
+        },
+        characters: getAll,
+      });
+    }
     return res
       .status(404)
       .json({ status: 404, message: "Not found characters list" });
