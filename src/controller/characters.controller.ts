@@ -7,30 +7,48 @@ export const getAllCharacters = async (req: Request, res: Response) => {
     // PAGINAZIONE
     let urlPrev = null;
     let urlNext = null;
+    const documentForPage: number = 20;
+    const totalCharacter = await Character.countDocuments({});
+    const maxpage = Math.ceil(totalCharacter / documentForPage);
     const page = Number(req.query.page);
+    console.log(maxpage);
     if (!req.query.page) {
       urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=2`;
     }
+
     if (req.query.page && page >= 1) {
       urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=${
         page + 1
       }`;
+
       if (page >= 2) {
         urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${
           page - 1
         }`;
       }
     }
+    if (page === maxpage) {
+      urlNext = null;
+    } else if (page > maxpage) {
+      return res
+        .status(200)
+        .json({
+          message: "No more character",
+          urlPrev:
+            (urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${maxpage}`),
+        });
+    }
 
     const getAll = await Character.find({})
-      .skip(!req.query.page || page === 1 ? 0 : page * 10)
-      .limit(20);
-
+      .skip(
+        !req.query.page || page === 1 ? 0 : (page - 1) * documentForPage + 1
+      )
+      .limit(documentForPage);
     if (getAll) {
       return res.status(200).json({
         info: {
           status: 200,
-          total_character: await Character.countDocuments({}),
+          totalCharacter,
           next: urlNext,
           prev: urlPrev,
         },
