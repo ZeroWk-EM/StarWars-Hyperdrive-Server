@@ -11,7 +11,6 @@ export const getAllCharacters = async (req: Request, res: Response) => {
     const totalCharacter = await Character.countDocuments({});
     const maxpage = Math.ceil(totalCharacter / documentForPage);
     const page = Number(req.query.page);
-    console.log(maxpage);
     if (!req.query.page) {
       urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=2`;
     }
@@ -41,7 +40,7 @@ export const getAllCharacters = async (req: Request, res: Response) => {
 
     const getAll = await Character.find({})
       .skip(
-        !req.query.page || page === 1 ? 0 : (page - 1) * documentForPage + 1
+        !req.query.page || page === 1 ? 0 : (page - 1) * documentForPage 
       )
       .limit(documentForPage);
     if (getAll) {
