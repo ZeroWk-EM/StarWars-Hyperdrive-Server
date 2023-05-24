@@ -3,44 +3,61 @@ import Character from "../model/characters.model";
 import ICharacter from "../interface/characters.interface";
 
 export const getAllCharacters = async (req: Request, res: Response) => {
+  //PAGINATION
+  let urlPrev = null;
+  let urlNext = null;
+  const documentForPage: number = 20;
   try {
-    // PAGINAZIONE
-    let urlPrev = null;
-    let urlNext = null;
-    const documentForPage: number = 20;
     const totalCharacter = await Character.countDocuments({});
     const maxpage = Math.ceil(totalCharacter / documentForPage);
-    const page = Number(req.query.page);
-    if (!req.query.page) {
+    const pageNumber = Number(req.query.page);
+
+    // Se non ci sono personaggi nella collection
+    if (totalCharacter === 0) {
+      return res.status(200).json({ message: "NO CHARACTER INTO COLLECTION" });
+    }
+
+    // Se non è settato il query params page
+    if (!pageNumber) {
       urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=2`;
     }
 
-    if (req.query.page && page >= 1) {
+    // Se esiste il query params page ed è maggiore o uguale ad 1
+    if (pageNumber && pageNumber >= 1) {
       urlNext = `http://localhost:${process.env.PORT}/v1/characters?page=${
-        page + 1
+        pageNumber + 1
       }`;
-
-      if (page >= 2) {
+      // Se esiste il query params page è maggiore o uguale ad 2
+      if (pageNumber >= 2) {
         urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${
-          page - 1
+          pageNumber - 1
         }`;
       }
     }
-    if (page === maxpage) {
+
+    // Se il numero attuale di pagione e uguale al numero massimo di pagine
+    if (pageNumber === maxpage) {
       urlNext = null;
-    } else if (page > maxpage) {
-      return res
-        .status(200)
-        .json({
-          message: "No more character",
-          urlPrev:
-            (urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${maxpage}`),
-        });
+      // Se si prova a mettere un numero manualemente come query param di page
+    } else if (pageNumber > maxpage) {
+      return res.status(200).json({
+        message: "No more character",
+        urlPrev:
+          (urlPrev = `http://localhost:${process.env.PORT}/v1/characters?page=${maxpage}`),
+      });
     }
 
-    const getAll = await Character.find({})
+    // Se il numero massimo di pagine è 1 mette a null entrambe (MESSO ALLA FINE IN MODO DA SOVVRASCRIVERE LE ALTRE COSE)
+    if (maxpage === 1) {
+      urlPrev = null;
+      urlNext = null;
+    }
+
+    const getAll = await Character.find(
+      req.query.name ? { name: req.query.name } : {}
+    )
       .skip(
-        !req.query.page || page === 1 ? 0 : (page - 1) * documentForPage 
+        !pageNumber || pageNumber === 1 ? 0 : (pageNumber - 1) * documentForPage
       )
       .limit(documentForPage);
     if (getAll) {
