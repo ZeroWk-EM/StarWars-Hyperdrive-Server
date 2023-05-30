@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Vehicles from "../model/vehicles.model";
+import Endpoint from "../model/endpoint.model";
 import IVehicles from "../interface/vehicles.interface";
 
 export const getAllVehicles = async ({ query }: Request, res: Response) => {
@@ -29,7 +30,13 @@ export const createVehicle = async ({ body }: Request, res: Response) => {
   try {
     const newVehiclesBody: IVehicles = body;
     const newVehicles = await Vehicles.create(newVehiclesBody);
-    if (newVehicles) return res.status(201).json(newVehicles);
+    if (newVehicles) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Vehicles" },
+        { counter: await Vehicles.countDocuments() }
+      );
+      return res.status(201).json(newVehicles);
+    }
     return res.status(400).json({
       error_message: "Error to creating vehicles...Invalid key(s) or value(s)",
     });
@@ -66,6 +73,10 @@ export const deleteVehicle = async (_: Request, res: Response) => {
     const vehiclesToDelete = await Vehicles.findByIdAndDelete(res.locals.id);
     if (!vehiclesToDelete)
       return res.status(404).json({ error: "Vehicles not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Vehicles" },
+      { counter: await Vehicles.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Vehicles with id = ${res.locals.id} has been deleted`,
@@ -74,4 +85,3 @@ export const deleteVehicle = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

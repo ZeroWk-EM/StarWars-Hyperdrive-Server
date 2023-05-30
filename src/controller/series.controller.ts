@@ -1,5 +1,6 @@
 import { Request, Response, query } from "express";
 import Serie from "../model/series.model";
+import Endpoint from "../model/endpoint.model";
 import ISerie from "../interface/series.interface";
 
 export const getAllSeries = async ({ query }: Request, res: Response) => {
@@ -32,7 +33,13 @@ export const createSerie = async ({ body }: Request, res: Response) => {
   try {
     const newSerieBody: ISerie = body;
     const newSerie = await Serie.create(newSerieBody);
-    if (newSerie) return res.status(201).json(newSerie);
+    if (newSerie) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Series" },
+        { counter: await Serie.countDocuments() }
+      );
+      return res.status(201).json(newSerie);
+    }
     return res.status(400).json({
       error_message: "Error to creating serie...Invalid key(s) or value(s)",
     });
@@ -98,6 +105,7 @@ export const deleteSerie = async (_: Request, res: Response) => {
     const serieToDelete = await Serie.findByIdAndDelete(res.locals.id);
     if (!serieToDelete)
       return res.status(404).json({ error: "Serie not found" });
+    Serie;
     return res.status(200).json({
       status: 200,
       message: `Serie with id = ${res.locals.id} has been deleted`,
@@ -106,4 +114,3 @@ export const deleteSerie = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

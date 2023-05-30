@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Faction from "../model/factions.model";
+import Endpoint from "../model/endpoint.model";
 import IFaction from "../interface/factions.interface";
 
 export const getAllFactions = async ({ query }: Request, res: Response) => {
@@ -27,7 +28,13 @@ export const createFaction = async ({ body }: Request, res: Response) => {
   try {
     const newFactionBody: IFaction = body;
     const newFaction = await Faction.create(newFactionBody);
-    if (newFaction) return res.status(201).json(newFaction);
+    if (newFaction) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Factions" },
+        { counter: await Faction.countDocuments() }
+      );
+      return res.status(201).json(newFaction);
+    }
     return res.status(400).json({
       error_message: "Error to creating faction...Invalid key(s) or value(s)",
     });
@@ -73,6 +80,10 @@ export const deleteFaction = async (_: Request, res: Response) => {
     const factionToDelete = await Faction.findByIdAndDelete(res.locals.id);
     if (!factionToDelete)
       return res.status(404).json({ error: "Faction not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Factions" },
+      { counter: await Faction.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Faction with id = ${res.locals.id} has been deleted`,
@@ -81,4 +92,3 @@ export const deleteFaction = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

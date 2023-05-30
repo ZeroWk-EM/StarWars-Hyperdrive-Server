@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Droid from "../model/droids.model";
+import Endpoint from "../model/endpoint.model";
 import IDroid from "../interface/droids.interface";
 
 export const getAllDroids = async ({ query }: Request, res: Response) => {
@@ -26,7 +27,13 @@ export const createDroid = async ({ body }: Request, res: Response) => {
   try {
     const newDroidBody: IDroid = body;
     const newDroid = await Droid.create(newDroidBody);
-    if (newDroid) return res.status(201).json(newDroid);
+    if (newDroid) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Droids" },
+        { counter: await Droid.countDocuments() }
+      );
+      return res.status(201).json(newDroid);
+    }
     return res.status(400).json({
       error_message: "Error to creating droid...Invalid key(s) or value(s)",
     });
@@ -76,6 +83,10 @@ export const deleteDroid = async (_: Request, res: Response) => {
     const droidToDelete = await Droid.findByIdAndDelete(res.locals.id);
     if (!droidToDelete)
       return res.status(404).json({ error: "Droid not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Droids" },
+      { counter: await Droid.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Droid with id = ${res.locals.id} has been deleted`,

@@ -16,6 +16,7 @@ app.get("/", (req: Request, res: Response) => {
     status: 200,
     message: "Server is running",
     endpoint: [
+      `/${apiVersion}/endpoint`,
       `/${apiVersion}/auth/login`,
       `/${apiVersion}/auth/register`,
       `/${apiVersion}/characters`,
@@ -34,6 +35,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Take all route method
+import endpointRoutes from "./routes/endpoint.routes";
 import authRoutes from "./routes/auth.routes";
 import charactersRoutes from "./routes/characters.routes";
 import creaturesRoutes from "./routes/creatures.routes";
@@ -48,6 +50,7 @@ import vehiclesRoutes from "./routes/vehicles.routes";
 import weaponsRoutes from "./routes/weapons.routes";
 
 // Association endpoint with route
+app.use(`/${apiVersion}/endpoint`, endpointRoutes);
 app.use(`/${apiVersion}/auth`, authRoutes);
 app.use(`/${apiVersion}/characters`, charactersRoutes);
 app.use(`/${apiVersion}/creatures`, creaturesRoutes);

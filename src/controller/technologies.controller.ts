@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Technologie from "../model/technologies.model";
+import Endpoint from "../model/endpoint.model";
 import ITechnologie from "../interface/technologies.interface";
 
 export const getAllTechonologies = async (
@@ -33,7 +34,13 @@ export const createTechnologie = async ({ body }: Request, res: Response) => {
   try {
     const newTechnologieBody: ITechnologie = body;
     const newTechnologie = await Technologie.create(newTechnologieBody);
-    if (newTechnologie) return res.status(201).json(newTechnologie);
+    if (newTechnologie) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Technologies" },
+        { counter: await Technologie.countDocuments() }
+      );
+      return res.status(201).json(newTechnologie);
+    }
     return res.status(400).json({
       error_message:
         "Error to creating technologie...Invalid key(s) or value(s)",
@@ -73,6 +80,10 @@ export const deleteTechnologie = async (_: Request, res: Response) => {
     );
     if (!technologieToDelete)
       return res.status(404).json({ error: "Technologie not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Technologies" },
+      { counter: await Technologie.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Technologie with id = ${res.locals.id} has been deleted`,
@@ -81,4 +92,3 @@ export const deleteTechnologie = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

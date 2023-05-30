@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Creature from "../model/creatures.model";
+import Endpoint from "../model/endpoint.model";
 import ICreature from "../interface/creatures.interface";
 
 export const getAllCreatures = async ({ query }: Request, res: Response) => {
@@ -29,7 +30,13 @@ export const createCreature = async ({ body }: Request, res: Response) => {
   try {
     const newCreatureBody: ICreature = body;
     const newCreature = await Creature.create(newCreatureBody);
-    if (newCreature) return res.status(201).json(newCreature);
+    if (newCreature) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Creatures" },
+        { counter: await Creature.countDocuments() }
+      );
+      return res.status(201).json(newCreature);
+    }
     return res.status(400).json({
       error_message: "Error to creating creature...Invalid key(s) or value(s)",
     });
@@ -88,6 +95,10 @@ export const deleteCreature = async (_: Request, res: Response) => {
     const creatureToDelete = await Creature.findByIdAndDelete(res.locals.id);
     if (!creatureToDelete)
       return res.status(404).json({ error: "Creature not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Creatures" },
+      { counter: await Creature.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Creature with id = ${res.locals.id} has been deleted`,

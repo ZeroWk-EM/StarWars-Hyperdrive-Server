@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Weapons from "../model/weapons.model";
+import Endpoint from "../model/endpoint.model";
 import IWeapons from "../interface/weapons.interface";
 
 export const getAllWeapons = async ({ query }: Request, res: Response) => {
@@ -29,7 +30,13 @@ export const createWeapon = async ({ body }: Request, res: Response) => {
   try {
     const newWeaponsBody: IWeapons = body;
     const newWeapons = await Weapons.create(newWeaponsBody);
-    if (newWeapons) return res.status(201).json(newWeapons);
+    if (newWeapons) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Weapons" },
+        { counter: await Weapons.countDocuments() }
+      );
+      return res.status(201).json(newWeapons);
+    }
     return res.status(400).json({
       error_message: "Error to creating weapons...Invalid key(s) or value(s)",
     });
@@ -66,6 +73,10 @@ export const deleteWeapon = async (_: Request, res: Response) => {
     const weaponsToDelete = await Weapons.findByIdAndDelete(res.locals.id);
     if (!weaponsToDelete)
       return res.status(404).json({ error: "Weapons not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Weapons" },
+      { counter: await Weapons.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Weapons with id = ${res.locals.id} has been deleted`,
@@ -74,4 +85,3 @@ export const deleteWeapon = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

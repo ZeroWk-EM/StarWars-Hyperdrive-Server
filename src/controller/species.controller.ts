@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Specie from "../model/species.model";
+import Endpoint from "../model/endpoint.model";
 import ISpecie from "../interface/species.interface";
 
 export const getAllSpecies = async ({ query }: Request, res: Response) => {
@@ -28,7 +29,13 @@ export const createSpecie = async ({ body }: Request, res: Response) => {
   try {
     const newSpecieBody: ISpecie = body;
     const newSpecie = await Specie.create(newSpecieBody);
-    if (newSpecie) return res.status(201).json(newSpecie);
+    if (newSpecie) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Species" },
+        { counter: await Specie.countDocuments() }
+      );
+      return res.status(201).json(newSpecie);
+    }
     return res.status(400).json({
       error_message: "Error to creating specie...Invalid key(s) or value(s)",
     });
@@ -86,6 +93,10 @@ export const deleteSpecie = async (_: Request, res: Response) => {
     const specieToDelete = await Specie.findByIdAndDelete(res.locals.id);
     if (!specieToDelete)
       return res.status(404).json({ error: "Specie not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Species" },
+      { counter: await Specie.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Specie with id = ${res.locals.id} has been deleted`,
@@ -94,4 +105,3 @@ export const deleteSpecie = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-

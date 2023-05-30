@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "start": "export DB=prod&& npm run build && node ./dist/app.js",
-    "dev": "export DB=dev&& npm run build && node ./dist/app.js"
+    "start": "SET DB=prod&& npm run build && node ./dist/app.js",
+    "dev": "SET DB=dev&& npm run build && node ./dist/app.js"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Character from "../model/characters.model";
+import Endpoint from "../model/endpoint.model";
 import ICharacter from "../interface/characters.interface";
 
 export const getAllCharacters = async (req: Request, res: Response) => {
@@ -94,7 +95,13 @@ export const createCharacter = async ({ body }: Request, res: Response) => {
   try {
     const newCharacterBody: ICharacter = body;
     const newCharacter = await Character.create(newCharacterBody);
-    if (newCharacter) return res.status(201).json(newCharacter);
+    if (newCharacter) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Characters" },
+        { counter: await Character.countDocuments() }
+      );
+      return res.status(201).json(newCharacter);
+    }
     return res.status(400).json({
       error_message: "Error to creating character...Invalid key(s) or value(s)",
     });
@@ -172,6 +179,10 @@ export const deleteCharacter = async (_: Request, res: Response) => {
     const characterToDelete = await Character.findByIdAndDelete(res.locals.id);
     if (!characterToDelete)
       return res.status(404).json({ error: "Character not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Characters" },
+      { counter: await Character.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Character with id = ${res.locals.id} has been deleted`,

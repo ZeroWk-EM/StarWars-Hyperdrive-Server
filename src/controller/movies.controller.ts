@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Movie from "../model/movies.model";
+import Endpoint from "../model/endpoint.model";
 import IMovie from "../interface/movies.interface";
 
 export const getAllMovies = async ({ query }: Request, res: Response) => {
@@ -28,7 +29,13 @@ export const createMovie = async ({ body }: Request, res: Response) => {
   try {
     const newMovieBody: IMovie = body;
     const newMovie = await Movie.create(newMovieBody);
-    if (newMovie) return res.status(201).json(newMovie);
+    if (newMovie) {
+      await Endpoint.findOneAndUpdate(
+        { title: "Movies" },
+        { counter: await Movie.countDocuments() }
+      );
+      return res.status(201).json(newMovie);
+    }
     return res.status(400).json({
       error_message: "Error to creating movie...Invalid key(s) or value(s)",
     });
@@ -92,6 +99,10 @@ export const deleteMovie = async (_: Request, res: Response) => {
     const movieToDelete = await Movie.findByIdAndDelete(res.locals.id);
     if (!movieToDelete)
       return res.status(404).json({ error: "Movie not found" });
+    await Endpoint.findOneAndUpdate(
+      { title: "Movies" },
+      { counter: await Movie.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Movie with id = ${res.locals.id} has been deleted`,
@@ -100,4 +111,3 @@ export const deleteMovie = async (_: Request, res: Response) => {
     res.status(400).json({ error_message: error });
   }
 };
-
