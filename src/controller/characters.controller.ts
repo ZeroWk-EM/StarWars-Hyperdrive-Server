@@ -64,7 +64,7 @@ export const getAllCharacters = async (req: Request, res: Response) => {
     if (getAll) {
       return res.status(200).json({
         info: {
-          status: 200,
+          maxpage,
           totalCharacter,
           next: urlNext,
           prev: urlPrev,
