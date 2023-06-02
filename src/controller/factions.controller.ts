@@ -63,10 +63,7 @@ export const getAllFactions = async (req: Request, res: Response) => {
       .limit(documentForPage);
     if (getAll)
       return res.status(200).json({
-        maxpage,
-        totalFaction,
-        next: urlNext,
-        prev: urlPrev,
+        info: { maxpage, totalFaction, next: urlNext, prev: urlPrev },
         factions: getAll,
       });
     res.status(404).json({ status: 404, message: "Don't exist factions list" });

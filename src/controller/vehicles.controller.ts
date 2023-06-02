@@ -62,15 +62,10 @@ export const getAllVehicles = async (req: Request, res: Response) => {
       )
       .limit(documentForPage);
     if (getAll)
-      return res
-        .status(200)
-        .json({
-          maxpage,
-          totalVehicles,
-          next: urlNext,
-          prev: urlPrev,
-          vehicles: getAll,
-        });
+      return res.status(200).json({
+        info: { maxpage, totalVehicles, next: urlNext, prev: urlPrev },
+        vehicles: getAll,
+      });
     return res
       .status(404)
       .json({ status: 404, message: "Not found vehicles list" });

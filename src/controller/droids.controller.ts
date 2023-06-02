@@ -54,17 +54,16 @@ export const getAllDroids = async (req: Request, res: Response) => {
       urlNext = null;
     }
 
-    const getAll = await Droid.find(req.query.name ? { name: req.query.name } : {})
+    const getAll = await Droid.find(
+      req.query.name ? { name: req.query.name } : {}
+    )
       .skip(
         !pageNumber || pageNumber === 1 ? 0 : (pageNumber - 1) * documentForPage
       )
       .limit(documentForPage);
     if (getAll)
       return res.status(200).json({
-        maxpage,
-        totalDroid,
-        next: urlNext,
-        prev: urlPrev,
+        info: { maxpage, totalDroid, next: urlNext, prev: urlPrev },
         droids: getAll,
       });
     res.status(404).json({ status: 404, message: "Don't exist droids list" });

@@ -61,7 +61,13 @@ export const getAllCreatures = async (req: Request, res: Response) => {
         !pageNumber || pageNumber === 1 ? 0 : (pageNumber - 1) * documentForPage
       )
       .limit(documentForPage);
-    if (getAll) return res.status(200).json({ maxpage,totalCreature,next:urlNext,prev:urlPrev, creatures: getAll });
+    if (getAll)
+      return res
+        .status(200)
+        .json({
+          info: { maxpage, totalCreature, next: urlNext, prev: urlPrev },
+          creatures: getAll,
+        });
     return res
       .status(404)
       .json({ status: 404, message: "Don't exist creatures list" });

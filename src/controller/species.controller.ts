@@ -62,15 +62,10 @@ export const getAllSpecies = async (req: Request, res: Response) => {
       )
       .limit(documentForPage);
     if (getAll)
-      return res
-        .status(200)
-        .json({
-          maxpage,
-          totalSpecie,
-          next: urlNext,
-          prev: urlPrev,
-          species: getAll,
-        });
+      return res.status(200).json({
+        info: { maxpage, totalSpecie, next: urlNext, prev: urlPrev },
+        species: getAll,
+      });
     return res
       .status(404)
       .json({ status: 404, message: "Not found species list" });

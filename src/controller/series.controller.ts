@@ -63,10 +63,7 @@ export const getAllSeries = async (req: Request, res: Response) => {
       .limit(documentForPage);
     if (getAll)
       return res.status(200).json({
-        maxpage,
-        totalSerie,
-        next: urlNext,
-        prev: urlPrev,
+        info: { maxpage, totalSerie, next: urlNext, prev: urlPrev },
         series: getAll,
       });
     return res

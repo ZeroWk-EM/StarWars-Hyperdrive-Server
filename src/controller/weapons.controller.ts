@@ -62,15 +62,10 @@ export const getAllWeapons = async (req: Request, res: Response) => {
       )
       .limit(documentForPage);
     if (getAll)
-      return res
-        .status(200)
-        .json({
-          maxpage,
-          totalWeapons,
-          next: urlNext,
-          prev: urlPrev,
-          weapons: getAll,
-        });
+      return res.status(200).json({
+        info: { maxpage, totalWeapons, next: urlNext, prev: urlPrev },
+        weapons: getAll,
+      });
     return res
       .status(404)
       .json({ status: 404, message: "Not found weapons list" });
