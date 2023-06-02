@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import Character from "../model/characters.model";
+import Movie from "../model/movies.model";
 
 export const checkBodyValid = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const validKeys = Object.keys(Character.schema.obj);
+  const validKeys = Object.keys(Movie.schema.obj);
   const bodyKeys = Object.keys(req.body);
   const invalidKeys = bodyKeys.filter((key) => !validKeys.includes(key));
   if (invalidKeys.length) {
