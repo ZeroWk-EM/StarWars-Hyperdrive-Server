@@ -61,7 +61,16 @@ export const getAllMovies = async (req: Request, res: Response) => {
         !pageNumber || pageNumber === 1 ? 0 : (pageNumber - 1) * documentForPage
       )
       .limit(documentForPage);
-    if (getAll) return res.status(200).json({ status: 200, movies: getAll });
+    if (getAll)
+      return res
+        .status(200)
+        .json({
+          maxpage,
+          totalMovie,
+          next: urlNext,
+          prev: urlPrev,
+          movies: getAll,
+        });
     return res
       .status(404)
       .json({ status: 404, message: "Not found movies list" });
