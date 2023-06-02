@@ -161,6 +161,10 @@ export const deleteSerie = async (_: Request, res: Response) => {
     if (!serieToDelete)
       return res.status(404).json({ error: "Serie not found" });
     Serie;
+    await Endpoint.findOneAndUpdate(
+      { title: "Series" },
+      { counter: await Serie.countDocuments() }
+    );
     return res.status(200).json({
       status: 200,
       message: `Serie with id = ${res.locals.id} has been deleted`,
