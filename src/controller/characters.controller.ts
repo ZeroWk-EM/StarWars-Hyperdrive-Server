@@ -94,7 +94,7 @@ export const getCharacterByID = async (_: Request, res: Response) => {
 export const createCharacter = async ({ body }: Request, res: Response) => {
   try {
     const newCharacterBody: ICharacter = body;
-    const newCharacter = await Character.create(newCharacterBody);
+    const newCharacter = await Character.create(newCharacterBody,);
     if (newCharacter) {
       await Endpoint.findOneAndUpdate(
         { title: "Characters" },
