@@ -7,7 +7,7 @@ import {
   getWeaponByID,
   updateWeapon,
 } from "../controller/weapons.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/weapons.middleware";
 
 const router = express.Router();
 router.use(express.json());

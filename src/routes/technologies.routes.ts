@@ -7,7 +7,7 @@ import {
   getTechnologieByID,
   updateTechnologie,
 } from "../controller/technologies.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/technologies.middleware";
 
 const router = express.Router();
 router.use(express.json());

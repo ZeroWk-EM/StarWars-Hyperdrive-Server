@@ -7,7 +7,7 @@ import {
   getFactionByID,
   updateFaction,
 } from "../controller/factions.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/faction.middleware";
 
 const router = express.Router();
 router.use(express.json());

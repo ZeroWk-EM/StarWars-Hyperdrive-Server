@@ -7,7 +7,7 @@ import {
   getDroidByID,
   updateDroid,
 } from "../controller/droids.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/droid.middleware";
 
 const router = express.Router();
 router.use(express.json());

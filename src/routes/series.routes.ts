@@ -7,7 +7,7 @@ import {
   getSerieByID,
   updateSerie,
 } from "../controller/series.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/serie.middleware";
 
 const router = express.Router();
 router.use(express.json());

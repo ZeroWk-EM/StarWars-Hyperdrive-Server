@@ -7,7 +7,7 @@ import {
   getCreatureByID,
   updateCreature,
 } from "../controller/creatures.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/creature.middleware";
 
 const router = express.Router();
 router.use(express.json());

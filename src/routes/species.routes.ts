@@ -7,7 +7,7 @@ import {
   getSpecieByID,
   updateSpecie,
 } from "../controller/species.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/specie.middleware";
 
 const router = express.Router();
 router.use(express.json());

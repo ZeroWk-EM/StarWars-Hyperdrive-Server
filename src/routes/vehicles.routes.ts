@@ -7,7 +7,7 @@ import {
   getVehicleByID,
   updateVehicle,
 } from "../controller/vehicles.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/vehicle.middleware";
 
 const router = express.Router();
 router.use(express.json());

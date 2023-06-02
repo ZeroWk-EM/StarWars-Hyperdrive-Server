@@ -7,7 +7,7 @@ import {
   getMovieByID,
   updateMovie,
 } from "../controller/movies.controller";
-import { checkBodyValid } from "../middleware/character.middleware";
+import { checkBodyValid } from "../middleware/movie.middleware";
 
 const router = express.Router();
 router.use(express.json());
