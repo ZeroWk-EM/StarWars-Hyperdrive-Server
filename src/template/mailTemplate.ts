@@ -73,7 +73,7 @@ export const VerifyAccount = (token: string): string => {
                                         </tbody>
                                       </table>
                                       <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">
-                                        For validate email, press the follow button or copy this token ${token} to <a href="https://localhost:3000/validateEmail" style="color: #0d6efd;">this link</a>
+                                        For validate email, press the follow button or copy this token <br>${token} to <a href="http://localhost:3000/validateEmail" style="color: #0d6efd;">this link</a>
                                       </p>
                                       <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
                                         <tbody>
@@ -88,7 +88,7 @@ export const VerifyAccount = (token: string): string => {
                                         <tbody>
                                           <tr>
                                             <td style="line-height: 24px; font-size: 16px; border-radius: 6px; font-weight: 700 !important; margin: 0;" align="center" bgcolor="#ffc107">
-                                              <a type="submit" href="https://localhost:3000/validateEmail/%24%7Btoken%7D" style="color: #111111; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 6px; line-height: 20px; display: block; font-weight: 700 !important; white-space: nowrap; background-color: #ffc107; padding: 12px; border: 1px solid #ffc107;">Validate Email</a>
+                                              <a type="submit" href=\`http://localhost:3000/validateEmail/${token}\` style="color: #111111; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 6px; line-height: 20px; display: block; font-weight: 700 !important; white-space: nowrap; background-color: #ffc107; padding: 12px; border: 1px solid #ffc107;">Validate Email</a>
                                             </td>
                                           </tr>
                                         </tbody>
