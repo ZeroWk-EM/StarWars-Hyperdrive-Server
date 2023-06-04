@@ -15,9 +15,10 @@ const UserSchema = new Schema<IUser>(
       required: true,
       default: RoleType.USER,
     },
-    username: { type: String, required: true },
-    email: { type: String, required: true },
+    username: { type: String, unique: true, required: true },
+    email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
+    verify: { type: String, required: false },
   },
   {
     timestamps: true,
