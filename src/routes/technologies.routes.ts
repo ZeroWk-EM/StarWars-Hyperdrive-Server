@@ -8,14 +8,15 @@ import {
   updateTechnologie,
 } from "../controller/technologies.controller";
 import { checkBodyValid } from "../middleware/technologies.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllTechonologies);
 router.get("/:id", checkIdValid, getTechnologieByID);
-router.post("/", checkBodyValid, createTechnologie);
-router.put("/:id", checkIdValid, updateTechnologie);
-router.delete("/:id", checkIdValid, deleteTechnologie);
+router.post("/", isAuth, checkBodyValid, createTechnologie);
+router.put("/:id", isAuth, checkIdValid, updateTechnologie);
+router.delete("/:id", isAuth, checkIdValid, deleteTechnologie);
 
 export default router;

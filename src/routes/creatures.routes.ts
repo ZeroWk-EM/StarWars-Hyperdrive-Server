@@ -8,14 +8,15 @@ import {
   updateCreature,
 } from "../controller/creatures.controller";
 import { checkBodyValid } from "../middleware/creature.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllCreatures);
 router.get("/:id", checkIdValid, getCreatureByID);
-router.post("/", checkBodyValid, createCreature);
-router.put("/:id", checkIdValid, updateCreature);
-router.delete("/:id", checkIdValid, deleteCreature);
+router.post("/", isAuth, checkBodyValid, createCreature);
+router.put("/:id", isAuth, checkIdValid, updateCreature);
+router.delete("/:id", isAuth, checkIdValid, deleteCreature);
 
 export default router;

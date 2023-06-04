@@ -8,14 +8,15 @@ import {
   updateVehicle,
 } from "../controller/vehicles.controller";
 import { checkBodyValid } from "../middleware/vehicle.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllVehicles);
 router.get("/:id", checkIdValid, getVehicleByID);
-router.post("/", checkBodyValid, createVehicle);
-router.put("/:id", checkIdValid, updateVehicle);
-router.delete("/:id", checkIdValid, deleteVehicle);
+router.post("/", isAuth, checkBodyValid, createVehicle);
+router.put("/:id", isAuth, checkIdValid, updateVehicle);
+router.delete("/:id", isAuth, checkIdValid, deleteVehicle);
 
 export default router;

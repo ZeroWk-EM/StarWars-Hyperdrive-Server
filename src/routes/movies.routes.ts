@@ -8,14 +8,15 @@ import {
   updateMovie,
 } from "../controller/movies.controller";
 import { checkBodyValid } from "../middleware/movie.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllMovies);
 router.get("/:id", checkIdValid, getMovieByID);
-router.post("/", checkBodyValid, createMovie);
-router.put("/:id", checkIdValid, updateMovie);
-router.delete("/:id", checkIdValid, deleteMovie);
+router.post("/", isAuth, checkBodyValid, createMovie);
+router.put("/:id", isAuth, checkIdValid, updateMovie);
+router.delete("/:id", isAuth, checkIdValid, deleteMovie);
 
 export default router;

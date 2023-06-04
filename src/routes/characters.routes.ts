@@ -8,14 +8,15 @@ import {
 } from "../controller/characters.controller";
 import { checkIdValid } from "../middleware/validation.middleware";
 import { checkBodyValid } from "../middleware/character.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllCharacters);
 router.get("/:id", checkIdValid, getCharacterByID);
-router.post("/", checkBodyValid, createCharacter);
-router.put("/:id", checkIdValid, updateCharacter);
-router.delete("/:id", checkIdValid, deleteCharacter);
+router.post("/", isAuth, checkBodyValid, createCharacter);
+router.put("/:id", isAuth, checkIdValid, updateCharacter);
+router.delete("/:id", isAuth, checkIdValid, deleteCharacter);
 
 export default router;

@@ -8,14 +8,15 @@ import {
   updateSerie,
 } from "../controller/series.controller";
 import { checkBodyValid } from "../middleware/serie.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllSeries);
 router.get("/:id", checkIdValid, getSerieByID);
-router.post("/", checkBodyValid, createSerie);
-router.put("/:id", checkIdValid, updateSerie);
-router.delete("/:id", checkIdValid, deleteSerie);
+router.post("/", isAuth, checkBodyValid, createSerie);
+router.put("/:id", isAuth, checkIdValid, updateSerie);
+router.delete("/:id", isAuth, checkIdValid, deleteSerie);
 
 export default router;

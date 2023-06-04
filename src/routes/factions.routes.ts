@@ -8,14 +8,15 @@ import {
   updateFaction,
 } from "../controller/factions.controller";
 import { checkBodyValid } from "../middleware/faction.middleware";
+import { isAuth } from "../middleware/user.middleware";
 
 const router = express.Router();
 router.use(express.json());
 
 router.get("/", getAllFactions);
 router.get("/:id", checkIdValid, getFactionByID);
-router.post("/", checkBodyValid, createFaction);
-router.put("/:id", checkIdValid, updateFaction);
-router.delete("/:id", checkIdValid, deleteFaction);
+router.post("/", isAuth ,checkBodyValid, createFaction);
+router.put("/:id", isAuth ,checkIdValid, updateFaction);
+router.delete("/:id", isAuth ,checkIdValid, deleteFaction);
 
 export default router;
