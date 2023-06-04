@@ -21,13 +21,12 @@ const EmailConnection = async (
     },
   });
 
-  const info = await transporter.sendMail({
+  await transporter.sendMail({
     from: user,
     to: email,
     subject,
     html: emailBody,
   });
 };
-
 
 export default EmailConnection;
