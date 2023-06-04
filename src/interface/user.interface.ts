@@ -8,6 +8,7 @@ interface IUser {
   username: string;
   email: string;
   password: string;
+  verify?: string;
 }
 
 export default IUser;
