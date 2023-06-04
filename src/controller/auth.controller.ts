@@ -34,7 +34,7 @@ export const registerUser = async ({ body }: Request, res: Response) => {
       .status(201)
       .json({ status: 201, message: "Successfully registered user" });
   } catch (error) {
-    return res.status(400).json({ status: 400, message: error });
+    return res.status(400).json(error);
   }
 };
 
@@ -58,7 +58,7 @@ export const loginUser = async ({ body }: Request, res: Response) => {
     return res.status(400).json({ message: "User not verified" });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ status: 400, message: error });
+    return res.status(400).json( error );
   }
 };
 
