@@ -184,7 +184,7 @@ export const deleteCharacter = async (_: Request, res: Response) => {
       { counter: await Character.countDocuments() }
     );
     return res.status(200).json({
-      status: 200,
+   
       message: `Character with id = ${res.locals.id} has been deleted`,
     });
   } catch (error) {

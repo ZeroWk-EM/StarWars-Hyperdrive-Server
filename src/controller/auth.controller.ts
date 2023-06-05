@@ -50,6 +50,7 @@ export const loginUser = async ({ body }: Request, res: Response) => {
           String(process.env.SECRET_KEY)
         );
         return res.status(200).json({
+          username:user.username,
           token,
         });
       }
